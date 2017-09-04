@@ -7,16 +7,16 @@ import random
 import json
 from urllib import urlencode
 
-def fanyi(q):
-    print 'fanyi:',q
+def bd_translate(q,fromLang,toLang):
+    # print 'from:',q
     appid = '20170727000068655'
     secretKey = 'zw1O5eE708BSmuUfgO8c'
 
     httpClient = None
     myurl = '/api/trans/vip/translate'
     # q = q
-    fromLang = 'zh'
-    toLang = 'en'
+    # fromLang = 'zh'
+    # toLang = 'en'
     salt = random.randint(32768, 65536)
 
     sign = appid + q + str(salt) + secretKey
@@ -33,7 +33,7 @@ def fanyi(q):
         # print response.read()
         j = json.loads(response.read())
         result = j['trans_result'][0]['dst']
-        print 'result:',result
+        # print 'to:',result
         return result
     except Exception, e:
         print e
@@ -41,4 +41,4 @@ def fanyi(q):
         if httpClient:
             httpClient.close()
 
-# print fanyi('早上好啊，吃过了吗？')
+# print bd_translate("""上海非常热，呆在室内吹吹冷气，吃吃冷饮吧。27℃~36℃ 多云 东南风微风 天气炎热，建议着短衫、短裙、短裤、薄型T恤衫等清凉夏季服装。""",'zh','en')
